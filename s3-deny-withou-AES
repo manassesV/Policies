@@ -1,0 +1,29 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "DenyIncorrrecctEncryption",
+            "Effect": "Deny",
+            "Principal": "*",
+            "Action": "s3:PutObject",
+            "Resource": "arn:aws:s3:::/*",
+            "Condition": {
+                "StringNotEquals": {
+                    "s3:x-amz-server-side-encryption": "AES256"
+                }
+            }
+        },
+        {
+            "Sid": "DenyMissingEncription",
+            "Effect": "Deny",
+            "Principal": "*",
+            "Action": "s3:PutObject",
+            "Resource": "arn:aws:s3:::/*",
+            "Condition": {
+                "Null": {
+                    "s3:x-amz-server-side-encryption": "true"
+                }
+            }
+        }
+    ]
+}
